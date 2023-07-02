@@ -1,0 +1,37 @@
+services:
+  api:
+    build: .
+    ports:
+      - 8000:8000
+    # env_file:    # you can use env_file 
+    #   - ./.env
+    environment:
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOSTNAME=postgres    # point to postgres database container
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=fastapiDb
+      - SECRET_KEY=09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MIMUTES=60
+    volumes:
+      # sync current folder changes to containers' /usr/src/app, make readonly
+      - ./:/usr/src/app:ro
+    # overwrite the Dockerfile command, with --reload,
+    # so any change in source will take action in docker
+    command: uvicorn app.fastapi_app:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    ports:
+      - 5000:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres   # DB-server password
+      - POSTGRES_DB=fastapiDb        # DB name
+    volumes:
+      # mount folder "/var/lib/postgresql/data" in container
+      # to host "postgres-db" folder 
+      - postgres-db:/var/lib/postgresql/data 
+volumes:
+    postgres-db:

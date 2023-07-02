@@ -26,7 +26,7 @@ def create_access_token(data: dict):
 
 
 def get_current_user(token: str=Depends(oauth2_scheme),
-                           db: Session=Depends(database.get_db)):
+                     db: Session=Depends(database.get_db)):
   """
   verify token when current user send api to server with token
   params:

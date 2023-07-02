@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 #from . import sql_alchemy_models_user as models
 from .routers import post, user, auth, vote
 
-# create tables, alembic to connect to models.Base
+# create tables, use sqlalchemy models to create tables
 #models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -28,7 +28,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-  return {"message": "Hello World !!!!!!"}
+  return {"message": "Hello World"}
 
 app.include_router(post.router)
 app.include_router(user.router)

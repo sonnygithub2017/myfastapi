@@ -63,8 +63,7 @@ def create_posts(post: schema.CreatePost, db: Session=Depends(get_db),
   # new_post = models.Post(title=post.title, content=post.content,
   #                        published=post.published)
   # use unpack dicts
-  print("***** current_user: *****")
-  print(current_user.id)
+  print(f"current_user id: {current_user.id}")
   new_post = models.Post(owner_id=current_user.id, **post.dict())
   db.add(new_post)
   db.commit()
