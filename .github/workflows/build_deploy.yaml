@@ -7,6 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: pulling git repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - name: install python verison 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: update pip
+        run: python -m pip install --upgrade pip
+      - name: install all dependences
+        run: pip install -r requirements.txt
       - name: say hi 
         run: echo "Hello Sonny"
+      - name: test with pytest
+        run: |
+          pip install pytest
+          pytest -v 
