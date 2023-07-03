@@ -15,7 +15,29 @@ jobs:
       SECRET_KEY: ${{secrets.SECRET_KEY}}
       ALGORITHM: ${{secrets.ALGORITHM}}
       ACCESS_TOKEN_EXPIRE_MIMUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MIMUTES}}
+
+    # must be linux env for container service
     runs-on: ubuntu-latest
+
+    # services containers to run with job1
+    services:
+      # label to access the service container
+      postgres:
+        # docker hub image
+        image: postgres
+        # postword and dbname
+        env:
+          POSTGRES_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+          POSTGRES_DB: ${{secrets.DATABASE_NAME}}_test
+        # job run runner machine, so need map
+        ports:
+          - ${{secrets.DATABASE_PORT}}:${{secrets.DATABASE_PORT}}
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: pulling git repo
         uses: actions/checkout@v3
