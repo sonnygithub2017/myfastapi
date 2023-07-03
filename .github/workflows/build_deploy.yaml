@@ -31,7 +31,7 @@ jobs:
           POSTGRES_DB: ${{secrets.DATABASE_NAME}}_test
         # job run runner machine, so need map
         ports:
-          - ${{secrets.DATABASE_PORT}}:${{secrets.DATABASE_PORT}}
+          - 5432:5432
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
