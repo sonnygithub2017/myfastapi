@@ -1,6 +1,7 @@
 services:
   api:
-    image: sonnydocker/myfastapi:1.0   # directly from your created docker image
+    # get docker image build from ubuntu (amd64)
+    image: sonnydocker/myfastapi:ci-cd
     ports:
       - 8000:8000
     environment:
