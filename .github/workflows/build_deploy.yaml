@@ -89,11 +89,11 @@ jobs:
           host: ${{secrets.PROD_HOST}}
           username: ${{secrets.PROD_USERNAME}}
           password: ${{secrets.PROD_PASSWORD}}
-        # multiple command, use "|"
-        # sudo terminal requires to read password, you can
-        # use -S to read from standard input
-        # or configure askpass
-        script: |
-          cd app/src
-          git pull
-          echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart fastapi 
+          # multiple command, use "|"
+          # sudo terminal requires to read password, you can
+          # use -S to read from standard input
+          # or configure askpass
+          script: |
+            cd app/src
+            git pull
+            echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart fastapi 
