@@ -72,11 +72,11 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/myfastapi:ci-cd
   
   # deploy job run another runner
-  deploying:
+  deploy:
     runs-on: ubuntu-latest
     # wait build job done
     needs: [build]
-    enviornment:
+    environment:
       # separate enironment
       name: production
     steps:
